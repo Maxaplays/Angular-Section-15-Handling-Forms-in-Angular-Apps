@@ -8,10 +8,18 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
 
-  @ViewChild('f',{static: true}) simpleForm: NgForm;
-
+  @ViewChild('f', {static: true}) simpleForm: NgForm;
+  defaultQuestion = 'pet';
+  answer = '';
+  genders = ['male', 'female'];
   suggestUserName() {
     const suggestedName = 'Superuser';
+    this.simpleForm.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    });
+    console.log(this.simpleForm.value);
   }
 
 /*  onSubmit(form: NgForm) {
