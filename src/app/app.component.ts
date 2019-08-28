@@ -8,18 +8,35 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
 
-  @ViewChild('f', {static: true}) simpleForm: NgForm;
+  // @ts-ignore
+  @ViewChild('f', {static: false}) simpleForm: NgForm;
   defaultQuestion = 'pet';
   answer = '';
   genders = ['male', 'female'];
+  user = {
+    username: '',
+    email: '',
+    secret: '',
+    answer: '',
+    gender: ''
+  };
+  submitted = false;
   suggestUserName() {
     const suggestedName = 'Superuser';
+    // this.signupForm.setValue({
+    //   userData: {
+    //     username: suggestedName,
+    //     email: ''
+    //   },
+    //   secret: 'pet',
+    //   questionAnswer: '',
+    //   gender: 'male'
+    // });
     this.simpleForm.form.patchValue({
       userData: {
         username: suggestedName
       }
     });
-    console.log(this.simpleForm.value);
   }
 
 /*  onSubmit(form: NgForm) {
@@ -27,6 +44,12 @@ export class AppComponent {
   } */
 
   onSubmit() {
-    console.log(this.simpleForm);
+    this.submitted = true;
+    this.user.username = this.simpleForm.value.userData.username;
+    this.user.email = this.simpleForm.value.userData.email;
+    this.user.secret = this.simpleForm.value.secret;
+    this.user.answer = this.simpleForm.value.questionAnswer;
+    this.user.gender = this.simpleForm.value.gender;
+    this.simpleForm.reset();
   }
 }
